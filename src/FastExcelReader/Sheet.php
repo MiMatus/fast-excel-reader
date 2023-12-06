@@ -167,12 +167,12 @@ class Sheet implements InterfaceSheetReader
                     // Check for numeric values
                     if (is_numeric($value)) {
                         /** @noinspection TypeUnsafeComparisonInspection */
-                        if ($value == (int)$value) {
+                        if ((string)((int)$value) === $value) {
                             $value = (int)$value;
                             $dataType = 'number';
                         }
                         /** @noinspection TypeUnsafeComparisonInspection */
-                        elseif ($value == (float)$value) {
+                        elseif (strlen($value) > 1 && !($value === '0' && $value[1] !== '.') && preg_match("/^[+-]?(([0-9]+)|([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)|(([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.[0-9]*))[eE][+-]?[0-9]+))$/", $value) === 1 && is_finite((float)$value)) {
                             $value = (float)$value;
                             $dataType = 'number';
                         }
